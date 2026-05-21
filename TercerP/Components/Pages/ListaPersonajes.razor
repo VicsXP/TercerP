@@ -1,0 +1,220 @@
+﻿@page "/lista-personajes"
+
+@using TercerP.Models
+@using TercerP.Services
+
+@inject GuerreroService guerreroService
+@inject MagoService magoService
+@inject ArqueroService arqueroService
+
+<h1 class="mb-4">
+    Lista de Personajes
+</h1>
+
+<!-- Total -->
+
+<div class="dashboard-card mb-4">
+
+    <h3>
+        Total de Personajes: @TotalPersonajes
+    </h3>
+
+</div>
+
+<!-- Guerreros -->
+
+<div class="dashboard-card mb-4">
+
+    <h3 class="mb-3">
+        Guerreros
+    </h3>
+
+    @if (guerreros.Count == 0)
+    {
+        <div class="alert alert-warning">
+
+            No hay guerreros registrados.
+
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Nombre</th>
+                    <th>Nivel</th>
+                    <th>PV</th>
+                    <th>XP</th>
+                    <th>Arma</th>
+                    <th>Defensa</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var guerrero in guerreros)
+                {
+                    <tr>
+
+                        <td>@guerrero.Nombre</td>
+                        <td>@guerrero.Nivel</td>
+                        <td>@guerrero.PV</td>
+                        <td>@guerrero.XP</td>
+                        <td>@guerrero.TipoArma</td>
+                        <td>@guerrero.DefensaFisica</td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    }
+
+</div>
+
+<!-- Magos -->
+
+<div class="dashboard-card mb-4">
+
+    <h3 class="mb-3">
+        Magos
+    </h3>
+
+    @if (magos.Count == 0)
+    {
+        <div class="alert alert-warning">
+
+            No hay magos registrados.
+
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Nombre</th>
+                    <th>Nivel</th>
+                    <th>PV</th>
+                    <th>XP</th>
+                    <th>Escuela</th>
+                    <th>Mana</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var mago in magos)
+                {
+                    <tr>
+
+                        <td>@mago.Nombre</td>
+                        <td>@mago.Nivel</td>
+                        <td>@mago.PV</td>
+                        <td>@mago.XP</td>
+                        <td>@mago.EscuelaMagia</td>
+                        <td>@mago.Mana</td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    }
+
+</div>
+
+<!-- Arqueros -->
+
+<div class="dashboard-card">
+
+    <h3 class="mb-3">
+        Arqueros
+    </h3>
+
+    @if (arqueros.Count == 0)
+    {
+        <div class="alert alert-warning">
+
+            No hay arqueros registrados.
+
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Nombre</th>
+                    <th>Nivel</th>
+                    <th>PV</th>
+                    <th>XP</th>
+                    <th>Tipo de Arco</th>
+                    <th>Precisión</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var arquero in arqueros)
+                {
+                    <tr>
+
+                        <td>@arquero.Nombre</td>
+                        <td>@arquero.Nivel</td>
+                        <td>@arquero.PV</td>
+                        <td>@arquero.XP</td>
+                        <td>@arquero.TipoArco</td>
+                        <td>@arquero.Precision%</td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    }
+
+</div>
+
+@code {
+
+    private List<Guerrero> guerreros = new();
+
+    private List<Mago> magos = new();
+
+    private List<Arquero> arqueros = new();
+
+    private int TotalPersonajes =>
+
+        guerreros.Count +
+        magos.Count +
+        arqueros.Count;
+
+    protected override void OnInitialized()
+    {
+        guerreros = guerreroService.ObtenerGuerreros();
+
+        magos = magoService.ObtenerMagos();
+
+        arqueros = arqueroService.ObtenerArqueros();
+    }
+}
