@@ -1,9 +1,84 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+<div>
+
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+			Personajes RPG
+        </div>
+
+        <nav>
+
+            <a href="/"
+                   class="sidebar-link">
+
+                Inicio
+
+            </a>
+
+            <a href="/guerreros"
+                   class="sidebar-link">
+
+                Crear Guerrero
+
+            </a>
+
+            <a href="/magos"
+                   class="sidebar-link">
+
+                Crear Mago
+
+            </a>
+
+            <a href="/arqueros"
+                   class="sidebar-link">
+
+                Crear Arquero
+
+            </a>
+
+            <a href="/lista-personajes"
+                   class="sidebar-link">
+
+                Lista Personajes
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <div class="main-content">
+
+        <div class="topbar">
+
+            <h3>
+                Administrador RPG
+            </h3>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            @Body
+
+        </div>
+
+    </div>
+
+</div>
 
 <div id="blazor-error-ui" data-nosnippet>
+
     An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
+
+    <a href="." class="reload">
+        Reload
+    </a>
+
+    <span class="dismiss">
+        🗙
+    </span>
+
 </div>
