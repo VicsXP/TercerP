@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "TipoArco": "Largo Recurvo",
+    "Precision": 75,
+    "Nombre": "Robin",
+    "Nivel": 47,
+    "PV": 500,
+    "XP": 340
+  }
+]

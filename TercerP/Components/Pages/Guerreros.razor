@@ -1,0 +1,148 @@
+﻿@page "/guerreros"
+
+@using TercerP.Models
+@using TercerP.Services
+
+@inject GuerreroService guerreroService
+
+<h1 class="mb-4">
+    Crear Guerrero
+</h1>
+
+<div class="dashboard-card">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nombre del Personaje
+        </label>
+
+        <input class="form-control"
+               @bind="nuevoGuerrero.Nombre" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nivel (1-99)
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoGuerrero.Nivel" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Puntos de Vida (PV)
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoGuerrero.PV" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Experiencia (XP)
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoGuerrero.XP" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Tipo de Arma
+        </label>
+
+        <select class="form-control"
+                @bind="nuevoGuerrero.TipoArma">
+
+            <option>Espada</option>
+            <option>Hacha</option>
+            <option>Martillo</option>
+            <option>Lanza</option>
+
+        </select>
+
+    </div>
+
+    <div class="mb-4">
+
+        <label class="form-label">
+            Defensa Física (1-100)
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoGuerrero.DefensaFisica" />
+
+    </div>
+
+    <button class="btn btn-primary"
+            @onclick="GuardarGuerrero">
+
+        Guardar Guerrero
+
+    </button>
+
+</div>
+
+@if (mensaje != "")
+{
+    <div class="alert alert-info mt-4">
+
+        @mensaje
+
+    </div>
+}
+
+@code {
+
+    private Guerrero nuevoGuerrero = new();
+
+    private string mensaje = "";
+
+    private void GuardarGuerrero()
+    {
+        if (nuevoGuerrero.Nivel < 1 || nuevoGuerrero.Nivel > 99)
+        {
+            mensaje = "El nivel debe estar entre 1 y 99";
+            return;
+        }
+
+        if (nuevoGuerrero.PV < 1)
+        {
+            mensaje = "El PV debe ser mayor a 0";
+            return;
+        }
+
+        if (nuevoGuerrero.XP < 0)
+        {
+            mensaje = "La XP no puede ser negativa";
+            return;
+        }
+
+        if (nuevoGuerrero.DefensaFisica < 1 ||
+            nuevoGuerrero.DefensaFisica > 100)
+        {
+            mensaje = "La defensa debe estar entre 1 y 100";
+            return;
+        }
+
+        guerreroService.GuardarGuerrero(nuevoGuerrero);
+
+        mensaje = "Guerrero registrado correctamente";
+
+        nuevoGuerrero = new Guerrero();
+    }
+}

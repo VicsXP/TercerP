@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "TipoArma": "Espada",
+    "DefensaFisica": 75,
+    "Nombre": "Gerald",
+    "Nivel": 99,
+    "PV": 1500,
+    "XP": 5000
+  }
+]

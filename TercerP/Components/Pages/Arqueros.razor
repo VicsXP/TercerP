@@ -1,0 +1,147 @@
+﻿@page "/arqueros"
+
+@using TercerP.Models
+@using TercerP.Services
+
+@inject ArqueroService arqueroService
+
+<h1 class="mb-4">
+    Crear Arquero
+</h1>
+
+<div class="dashboard-card">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nombre del Personaje
+        </label>
+
+        <input class="form-control"
+               @bind="nuevoArquero.Nombre" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nivel (1-99)
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoArquero.Nivel" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            PV
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoArquero.PV" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            XP
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoArquero.XP" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Tipo de Arco
+        </label>
+
+        <select class="form-control"
+                @bind="nuevoArquero.TipoArco">
+
+            <option>Compuesto</option>
+            <option>Largo Recurvo</option>
+            <option>Ballesta</option>
+
+        </select>
+
+    </div>
+
+    <div class="mb-4">
+
+        <label class="form-label">
+            Precisión (0-100)
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoArquero.Precision" />
+
+    </div>
+
+    <button class="btn btn-primary"
+            @onclick="GuardarArquero">
+
+        Guardar Arquero
+
+    </button>
+
+</div>
+
+@if (mensaje != "")
+{
+    <div class="alert alert-info mt-4">
+
+        @mensaje
+
+    </div>
+}
+
+@code {
+
+    private Arquero nuevoArquero = new();
+
+    private string mensaje = "";
+
+    private void GuardarArquero()
+    {
+        if (nuevoArquero.Nivel < 1 || nuevoArquero.Nivel > 99)
+        {
+            mensaje = "El nivel debe estar entre 1 y 99";
+            return;
+        }
+
+        if (nuevoArquero.PV < 1)
+        {
+            mensaje = "El PV debe ser mayor a 0";
+            return;
+        }
+
+        if (nuevoArquero.XP < 0)
+        {
+            mensaje = "La XP no puede ser negativa";
+            return;
+        }
+
+        if (nuevoArquero.Precision < 0 ||
+            nuevoArquero.Precision > 100)
+        {
+            mensaje = "La precisión debe estar entre 0 y 100";
+            return;
+        }
+
+        arqueroService.GuardarArquero(nuevoArquero);
+
+        mensaje = "Arquero registrado correctamente";
+
+        nuevoArquero = new Arquero();
+    }
+}

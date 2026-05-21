@@ -1,0 +1,146 @@
+﻿@page "/magos"
+
+@using TercerP.Models
+@using TercerP.Services
+
+@inject MagoService magoService
+
+<h1 class="mb-4">
+    Crear Mago
+</h1>
+
+<div class="dashboard-card">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nombre del Personaje
+        </label>
+
+        <input class="form-control"
+               @bind="nuevoMago.Nombre" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nivel (1-99)
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoMago.Nivel" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            PV
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoMago.PV" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            XP
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoMago.XP" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Escuela de Magia
+        </label>
+
+        <select class="form-control"
+                @bind="nuevoMago.EscuelaMagia">
+
+            <option>Fuego</option>
+            <option>Hielo</option>
+            <option>Oscuridad</option>
+
+        </select>
+
+    </div>
+
+    <div class="mb-4">
+
+        <label class="form-label">
+            Mana
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevoMago.Mana" />
+
+    </div>
+
+    <button class="btn btn-primary"
+            @onclick="GuardarMago">
+
+        Guardar Mago
+
+    </button>
+
+</div>
+
+@if (mensaje != "")
+{
+    <div class="alert alert-info mt-4">
+
+        @mensaje
+
+    </div>
+}
+
+@code {
+
+    private Mago nuevoMago = new();
+
+    private string mensaje = "";
+
+    private void GuardarMago()
+    {
+        if (nuevoMago.Nivel < 1 || nuevoMago.Nivel > 99)
+        {
+            mensaje = "El nivel debe estar entre 1 y 99";
+            return;
+        }
+
+        if (nuevoMago.PV < 1)
+        {
+            mensaje = "El PV debe ser mayor a 0";
+            return;
+        }
+
+        if (nuevoMago.XP < 0)
+        {
+            mensaje = "La XP no puede ser negativa";
+            return;
+        }
+
+        if (nuevoMago.Mana < 1)
+        {
+            mensaje = "El mana debe ser mayor a 0";
+            return;
+        }
+
+        magoService.GuardarMago(nuevoMago);
+
+        mensaje = "Mago registrado correctamente";
+
+        nuevoMago = new Mago();
+    }
+}

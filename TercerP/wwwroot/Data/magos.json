@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "EscuelaMagia": "Oscuridad",
+    "Mana": 2000,
+    "Nombre": "Oz",
+    "Nivel": 55,
+    "PV": 800,
+    "XP": 152
+  }
+]
